@@ -51,3 +51,13 @@ svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/
 #
 # ------------------------------- Other ends -------------------------------
 
+# use immortalwrt iptables
+# rm -rf package/network/utils/iptables
+# svn co https://github.com/immortalwrt/immortalwrt/trunk/package/network/utils/iptables package/network/utils/iptables
+
+
+# IPV6 disable
+# cut_line_n=$( grep -n "config\ IPV6" config/Config-build.in | cut -d ":" -f 1)
+cut_line_n=$( sed -n '/config\ IPV6/=' config/Config-build.in )
+cut_line_n=$(( $cut_line_n + 1 ))
+sed -i "${cut_line_n}s/def_bool\ y/def_bool\ n/" config/Config-build.in
